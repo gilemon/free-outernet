@@ -29,7 +29,7 @@ class KISSDeframer():
     """
     Deframe a stream of bytes into KISS frames
     """
-    __FEND = 0xc0
+    __FEND = 0xC0
     __FESC = 0xdb
     __TFEND = 0xdc
     __TFESC = 0xdd
@@ -57,7 +57,7 @@ class KISSDeframer():
         self.__kiss.extend(data)
 
         while self.__kiss:
-            c = self.__kiss.popleft()
+            c = ord(self.__kiss.popleft())
             if c == self.__FEND:
                 if self.__pdu and not self.__pdu[0] & 0x0f:
                     pdus.append(bytes(self.__pdu[1:]))
@@ -72,5 +72,4 @@ class KISSDeframer():
                 self.__transpose = True
             else:
                 self.__pdu.append(c)
-
         return pdus

@@ -141,7 +141,8 @@ class FileService:
             return
 
         path = os.path.join(self.__files_path, f.path)
-        os.makedirs(os.path.dirname(path), exist_ok = True)
+#        os.makedirs(os.path.dirname(path), exist_ok = True) orginal for Python3
+        os.makedirs(os.path.dirname(path))
         out = open(os.path.join(self.__files_path, f.path), 'wb')
         out.write(contents)
         out.close()
@@ -161,7 +162,7 @@ class File:
 
         Args:
           xml (str): XML description of the file
-        """
+        """  
         root = ET.fromstring(xml)
         self.id = int(root.find('id').text)
         self.path = root.find('path').text
@@ -173,7 +174,7 @@ class File:
         if self.fec != None:
             self.fec = self.fec.text
             self.__fec_matrix = None
-        self.__blocks = [None] * self.blocks
+        self.__blocks = [None] * (int(self.blocks)+1)
         self.__fec_blocks = list()
 
     def push_block(self, block, n):
@@ -261,7 +262,7 @@ class File:
                 print('Some blocks are missing. Cannot reconstruct file {}'.format(self.path))
                 return
             contents = bytes().join(self.__blocks)
-
+			
         if len(contents) != self.size:
             print('File length mismatch. Cannot reconstruct file {}'.format(self.path))
             return

@@ -62,7 +62,7 @@ class TimeService:
             data = payload[2:desc_len+2]
             payload = payload[desc_len+2:]
             if desc_id == 0x01:
-                server_id = str(data, 'utf-8')
+                server_id = str(data).encode("utf-8")
                 print('[Time service] Server ID: {}'.format(server_id))
             elif desc_id == 0x02 and len(data) == 8:
                 timestamp = datetime.datetime.utcfromtimestamp(struct.unpack('>Q', data)[0])

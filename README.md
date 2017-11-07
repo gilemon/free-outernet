@@ -1,4 +1,4 @@
-# free-outernet
+# free-outernet - Python 2.0 version
 Free Software Outernet receiver
 
 This is a Free Software (Open Source) receiver for
